@@ -1,0 +1,13 @@
+[
+  {
+    "modid": "UndergroundBiomesBlender",
+    "name": "Underground Biomes Blender",
+    "description": "Makes ores match the texture of nearby Underground Biomes stone",
+    "version": "@VERSION@",
+      "mcversion": "@MCVERSION@",
+    "url": "",
+    "authors": [
+      "iguana_man"
+    ]
+  }
+]
