@@ -36,7 +36,7 @@ import org.modstats.Modstats;
 
 import tconstruct.blocks.MetalOre;
 import tconstruct.items.blocks.MetalOreItemBlock;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import com.google.common.base.Optional;
 
@@ -60,7 +60,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="UndergroundBiomesBlender", name="Underground Biomes Blender", version="1.6.X-1a", 
+@Mod(modid="UndergroundBiomesBlender", name="Underground Biomes Blender", version="1.6.X-1b", 
 dependencies = "required-after:UndergroundBiomes;after:TConstruct@")
 @NetworkMod(clientSideRequired=true, serverSideRequired=true)
 @ModstatInfo(prefix="ubblender")
