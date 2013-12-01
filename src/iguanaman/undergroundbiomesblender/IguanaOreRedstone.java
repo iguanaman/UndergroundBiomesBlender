@@ -24,7 +24,7 @@ public class IguanaOreRedstone extends BlockRedstoneOre {
 	public IguanaOreRedstone(int par1, boolean par2, Block companion) {
 		super(par1, par2);
 		companionBlock = companion;
-        this.setTickRandomly(true);
+		if (!UndergroundBiomesBlender.COG) this.setTickRandomly(false);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -52,19 +52,16 @@ public class IguanaOreRedstone extends BlockRedstoneOre {
      * The redstone ore glows.
      */
     @Override
-    public void glow(World par1World, int par2, int par3, int par4)
-    {
-        this.sparkle(par1World, par2, par3, par4);
-        int meta = par1World.getBlockMetadata(par2, par3, par4);
+    public void glow(World par1World, int par2, int par3, int par4) {}
 
-        if (this.blockID == UndergroundBiomesBlender.newRedstone.blockID)
-        {
-            par1World.setBlock(par2, par3, par4, UndergroundBiomesBlender.newRedstoneGlowing.blockID, meta, 2);
-        }
-        else if (this.blockID == UndergroundBiomesBlender.newRedstoneCompanion.blockID)
-        {
-            par1World.setBlock(par2, par3, par4, UndergroundBiomesBlender.newRedstoneGlowingCompanion.blockID, meta, 2);
-        }
+    /**
+     * Called whenever the block is added into the world. Args: world, x, y, z
+     */
+	@Override
+    public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+    {
+		if (UndergroundBiomesBlender.COG) this.updateTick(par1World, par2, par3, par4, par1World.rand);
+		return super.onBlockPlaced(par1World, par2, par3, par4, par5, par6, par7, par8, par9);
     }
 
     /**
@@ -73,7 +70,7 @@ public class IguanaOreRedstone extends BlockRedstoneOre {
 	@Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
-    	this.updateTick(par1World, par2, par3, par4, par1World.rand);
+		if (!UndergroundBiomesBlender.COG) this.updateTick(par1World, par2, par3, par4, par1World.rand);
     }
 
     /**
@@ -83,15 +80,6 @@ public class IguanaOreRedstone extends BlockRedstoneOre {
     public void updateTick(World par1World, int x, int y, int z, Random par5Random)
     {
         int thisMeta = par1World.getBlockMetadata(x, y, z);
-        
-        if (this.blockID == UndergroundBiomesBlender.newRedstoneGlowing.blockID)
-        {
-            par1World.setBlock(x, y, z, UndergroundBiomesBlender.newRedstone.blockID, thisMeta, 2);
-        }
-        else if (this.blockID == UndergroundBiomesBlender.newRedstoneGlowingCompanion.blockID)
-        {
-            par1World.setBlock(x, y, z, UndergroundBiomesBlender.newRedstoneCompanion.blockID, thisMeta, 2);
-        }
         
     	if (thisMeta == 0)
     	{

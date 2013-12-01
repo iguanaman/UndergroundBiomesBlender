@@ -27,6 +27,7 @@ public class IguanaOreCompanion extends IguanaOre {
 		super(par1, null);
         this.setCreativeTab(null);
         companionID = companion;
+        this.setTickRandomly(false);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -43,6 +44,18 @@ public class IguanaOreCompanion extends IguanaOre {
         }
     }
 
+    /**
+     * Called whenever the block is added into the world. Args: world, x, y, z
+     */
+	@Override
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {}
+
+    /**
+     * Ticks the block if it's been scheduled
+     */
+    @Override
+    public void updateTick(World par1World, int x, int y, int z, Random par5Random) {}
+    
     /**
      * Returns the ID of the items to drop on destruction.
      */

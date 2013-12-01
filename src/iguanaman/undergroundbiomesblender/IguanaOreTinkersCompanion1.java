@@ -24,6 +24,7 @@ public class IguanaOreTinkersCompanion1 extends TConstructBlock {
 		super(id, Material.iron, 3f, new String[]{});
         this.setCreativeTab(null);
 		this.dropMeta = dropMeta;
+        this.setTickRandomly(false);
 	}
 
     /**
@@ -34,6 +35,18 @@ public class IguanaOreTinkersCompanion1 extends TConstructBlock {
     {
         return UndergroundBiomesBlender.newTinkersOre.blockID;
     }
+
+    /**
+     * Called whenever the block is added into the world. Args: world, x, y, z
+     */
+	@Override
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {}
+
+    /**
+     * Ticks the block if it's been scheduled
+     */
+    @Override
+    public void updateTick(World par1World, int x, int y, int z, Random par5Random) {}
 
     /**
      * only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative)

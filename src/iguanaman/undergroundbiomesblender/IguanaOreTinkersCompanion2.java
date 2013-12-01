@@ -2,12 +2,14 @@ package iguanaman.undergroundbiomesblender;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 public class IguanaOreTinkersCompanion2 extends IguanaOreTinkersCompanion1 {
 
@@ -17,7 +19,20 @@ public class IguanaOreTinkersCompanion2 extends IguanaOreTinkersCompanion1 {
     
 	public IguanaOreTinkersCompanion2(int id, int dropMeta) {
 		super(id, dropMeta); 
+        this.setTickRandomly(false);
 	}
+
+    /**
+     * Called whenever the block is added into the world. Args: world, x, y, z
+     */
+	@Override
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {}
+
+    /**
+     * Ticks the block if it's been scheduled
+     */
+    @Override
+    public void updateTick(World par1World, int x, int y, int z, Random par5Random) {}
 
 	@SideOnly(Side.CLIENT)
     @Override

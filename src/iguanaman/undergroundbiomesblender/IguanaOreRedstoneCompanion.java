@@ -20,6 +20,7 @@ public class IguanaOreRedstoneCompanion extends IguanaOreRedstone {
 		super(par1, par2, null);
         this.setCreativeTab(null);
         companionID = companion;
+        this.setTickRandomly(false);
 	}
 	
     public static final List<String> blockNames = Arrays.asList("", "", "soapstone", "migmatite",
@@ -49,6 +50,18 @@ public class IguanaOreRedstoneCompanion extends IguanaOreRedstone {
     {
         return companionID;
     }
+
+    /**
+     * Called whenever the block is added into the world. Args: world, x, y, z
+     */
+	@Override
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {}
+
+    /**
+     * Ticks the block if it's been scheduled
+     */
+    @Override
+    public void updateTick(World par1World, int x, int y, int z, Random par5Random) {}
     
     /**
      * Returns an item stack containing a single instance of the current block type. 'i' is the block's subtype/damage

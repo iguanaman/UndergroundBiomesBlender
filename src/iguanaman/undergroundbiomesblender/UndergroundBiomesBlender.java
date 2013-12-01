@@ -60,7 +60,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="UndergroundBiomesBlender", name="Underground Biomes Blender", version="1.6.X-1b", 
+@Mod(modid="UndergroundBiomesBlender", name="Underground Biomes Blender", version="1.6.X-1a", 
 dependencies = "required-after:UndergroundBiomes;after:TConstruct@")
 @NetworkMod(clientSideRequired=true, serverSideRequired=true)
 @ModstatInfo(prefix="ubblender")
@@ -90,8 +90,6 @@ public class UndergroundBiomesBlender {
         public static Block newLapisCompanion;
         public static Block newRedstone;
         public static Block newRedstoneCompanion;
-        public static Block newRedstoneGlowing;
-        public static Block newRedstoneGlowingCompanion;
         public static Block newTinkersOre;
         public static Block newTinkersOreCopperCompanion1;
         public static Block newTinkersOreCopperCompanion2;
@@ -99,6 +97,8 @@ public class UndergroundBiomesBlender {
         public static Block newTinkersOreTinCompanion2;
         public static Block newTinkersOreAluminumCompanion1;
         public static Block newTinkersOreAluminumCompanion2;
+        
+        public static boolean COG = false;
         
        
         // Says where the client and server 'proxy' code is loaded.
@@ -110,8 +110,10 @@ public class UndergroundBiomesBlender {
 
         	IguanaConfig.Init(event.getSuggestedConfigurationFile());
         	
+        	if (Loader.isModLoaded("CustomOreGenRevived")) COG = true;
+        	
         	Block.blocksList[16] = null;
-        	newCoalCompanion = (new IguanaOreCompanion(IguanaConfig.coalCompanionId, 16)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreCoal").setTextureName("coal_ore");
+        	newCoalCompanion = (new IguanaOreCompanion(IguanaConfig.coalCompanionId, 16)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreCoalCompanion").setTextureName("coal_ore");
         	newCoal = (new IguanaOre(16, newCoalCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreCoal").setTextureName("coal_ore");
             GameRegistry.registerBlock(newCoalCompanion, "newCoalCompanion");
             GameRegistry.registerBlock(newCoal, "newCoal");
@@ -119,9 +121,10 @@ public class UndergroundBiomesBlender {
             OreDictionary.registerOre("oreCoal", new ItemStack(newCoal, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newCoalCompanion, "pickaxe", 0);
             MinecraftForge.setBlockHarvestLevel(newCoal, "pickaxe", 0);
+            LanguageRegistry.addName(newCoalCompanion, "Coal Ore");
             
         	Block.blocksList[56] = null;
-        	newDiamondCompanion = (new IguanaOreCompanion(IguanaConfig.diamondCompanionId, 56)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreDiamond").setTextureName("diamond_ore");
+        	newDiamondCompanion = (new IguanaOreCompanion(IguanaConfig.diamondCompanionId, 56)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreDiamondCompanion").setTextureName("diamond_ore");
         	newDiamond = (new IguanaOre(56, newDiamondCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreDiamond").setTextureName("diamond_ore");
             GameRegistry.registerBlock(newDiamondCompanion, "newDiamondCompanion");
             GameRegistry.registerBlock(newDiamond, "newDiamond");
@@ -129,9 +132,10 @@ public class UndergroundBiomesBlender {
             OreDictionary.registerOre("oreDiamond", new ItemStack(newDiamond, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newDiamondCompanion, "pickaxe", 2);
             MinecraftForge.setBlockHarvestLevel(newDiamond, "pickaxe", 2);
+            LanguageRegistry.addName(newDiamondCompanion, "Diamond Ore");
         	
         	Block.blocksList[14] = null;
-        	newGoldCompanion = (new IguanaOreCompanion(IguanaConfig.goldCompanionId, 14)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreGold").setTextureName("gold_ore");
+        	newGoldCompanion = (new IguanaOreCompanion(IguanaConfig.goldCompanionId, 14)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreGoldCompanion").setTextureName("gold_ore");
         	newGold = (new IguanaOre(14, newGoldCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreGold").setTextureName("gold_ore");
             GameRegistry.registerBlock(newGoldCompanion, "newGoldCompanion");
             GameRegistry.registerBlock(newGold, "newGold");
@@ -139,9 +143,10 @@ public class UndergroundBiomesBlender {
             OreDictionary.registerOre("oreGold", new ItemStack(newGold, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newGoldCompanion, "pickaxe", 2);
             MinecraftForge.setBlockHarvestLevel(newGold, "pickaxe", 2);
+            LanguageRegistry.addName(newGoldCompanion, "Gold Ore");
             
         	Block.blocksList[15] = null;
-        	newIronCompanion = (new IguanaOreCompanion(IguanaConfig.ironCompanionId, 15)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("newIronCompanion").setTextureName("iron_ore");
+        	newIronCompanion = (new IguanaOreCompanion(IguanaConfig.ironCompanionId, 15)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreIronCompanion").setTextureName("iron_ore");
         	newIron = (new IguanaOre(15, newIronCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreIron").setTextureName("iron_ore");
             GameRegistry.registerBlock(newIronCompanion, "newIronCompanion");
             GameRegistry.registerBlock(newIron, "newIron");
@@ -149,9 +154,10 @@ public class UndergroundBiomesBlender {
             OreDictionary.registerOre("oreIron", new ItemStack(newIron, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newIronCompanion, "pickaxe", 1);
             MinecraftForge.setBlockHarvestLevel(newIron, "pickaxe", 1);
+            LanguageRegistry.addName(newIronCompanion, "Iron Ore");
         	
         	Block.blocksList[129] = null;
-        	newEmeraldCompanion = (new IguanaOreCompanion(IguanaConfig.emeraldCompanionId, 129)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreEmerald").setTextureName("emerald_ore");
+        	newEmeraldCompanion = (new IguanaOreCompanion(IguanaConfig.emeraldCompanionId, 129)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreEmeraldCompanion").setTextureName("emerald_ore");
         	newEmerald = (new IguanaOre(129, newEmeraldCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreEmerald").setTextureName("emerald_ore");
             GameRegistry.registerBlock(newEmeraldCompanion, "newEmeraldCompanion");
             GameRegistry.registerBlock(newEmerald, "newEmerald");
@@ -159,9 +165,10 @@ public class UndergroundBiomesBlender {
             OreDictionary.registerOre("oreEmerald", new ItemStack(newEmerald, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newEmeraldCompanion, "pickaxe", 2);
             MinecraftForge.setBlockHarvestLevel(newEmerald, "pickaxe", 2);
+            LanguageRegistry.addName(newEmeraldCompanion, "Emerald Ore");
         	
         	Block.blocksList[21] = null;
-        	newLapisCompanion = (new IguanaOreCompanion(IguanaConfig.lapisCompanionId, 21)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreLapis").setTextureName("lapis_ore");
+        	newLapisCompanion = (new IguanaOreCompanion(IguanaConfig.lapisCompanionId, 21)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreLapisCompanion").setTextureName("lapis_ore");
         	newLapis = (new IguanaOre(21, newLapisCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreLapis").setTextureName("lapis_ore");
             GameRegistry.registerBlock(newLapisCompanion, "newLapisCompanion");
             GameRegistry.registerBlock(newLapis, "newLapis");
@@ -169,38 +176,30 @@ public class UndergroundBiomesBlender {
             OreDictionary.registerOre("oreLapis", new ItemStack(newLapis, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newLapisCompanion, "pickaxe", 1);
             MinecraftForge.setBlockHarvestLevel(newLapis, "pickaxe", 1);
+            LanguageRegistry.addName(newLapisCompanion, "Lapis Ore");
         	
         	Block.blocksList[73] = null;
-        	newRedstoneCompanion = (new IguanaOreRedstoneCompanion(IguanaConfig.redstoneCompanionId, false, 73)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreRedstone").setTextureName("redstone_ore").setCreativeTab(CreativeTabs.tabBlock);
+        	newRedstoneCompanion = (new IguanaOreRedstoneCompanion(IguanaConfig.redstoneCompanionId, false, 73)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreRedstoneCompanion").setTextureName("redstone_ore").setCreativeTab(CreativeTabs.tabBlock);
         	newRedstone = (new IguanaOreRedstone(73, false, newRedstoneCompanion)).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreRedstone").setTextureName("redstone_ore").setCreativeTab(CreativeTabs.tabBlock);
             GameRegistry.registerBlock(newRedstoneCompanion, "newRedstoneCompanion");
             GameRegistry.registerBlock(newRedstone, "newRedstone");
             OreDictionary.registerOre("oreRedstone", new ItemStack(newRedstoneCompanion, 1, OreDictionary.WILDCARD_VALUE));
             OreDictionary.registerOre("oreRedstone", new ItemStack(newRedstone, 1, OreDictionary.WILDCARD_VALUE));
             MinecraftForge.setBlockHarvestLevel(newRedstoneCompanion, "pickaxe", 2);
-            MinecraftForge.setBlockHarvestLevel(newRedstoneGlowing, "pickaxe", 2);
-        	
-        	Block.blocksList[74] = null;
-        	newRedstoneGlowingCompanion = (new IguanaOreRedstoneCompanion(IguanaConfig.redstoneGlowingCompanionId, true, 73)).setLightValue(0.625F).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreRedstone").setTextureName("redstone_ore");
-        	newRedstoneGlowing = (new IguanaOreRedstone(74, true, newRedstoneGlowingCompanion)).setLightValue(0.625F).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreRedstone").setTextureName("redstone_ore");
-            GameRegistry.registerBlock(newRedstoneGlowingCompanion, "newRedstoneGlowingCompanion");
-            GameRegistry.registerBlock(newRedstoneGlowing, "newRedstoneGlowing");
-            OreDictionary.registerOre("oreRedstone", new ItemStack(newRedstoneGlowingCompanion, 1, OreDictionary.WILDCARD_VALUE));
-            OreDictionary.registerOre("oreRedstone", new ItemStack(newRedstoneGlowing, 1, OreDictionary.WILDCARD_VALUE));
-            MinecraftForge.setBlockHarvestLevel(newRedstoneGlowingCompanion, "pickaxe", 2);
-            MinecraftForge.setBlockHarvestLevel(newRedstoneGlowing, "pickaxe", 2);
+            MinecraftForge.setBlockHarvestLevel(newRedstone, "pickaxe", 2);
+            LanguageRegistry.addName(newRedstoneCompanion, "Redstone Ore");
             
             if (Loader.isModLoaded("TConstruct"))
             {
             	Block.blocksList[PHConstruct.oreSlag] = null;
 	            String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
 
-	            newTinkersOreCopperCompanion1 = new IguanaOreTinkersCompanion1(IguanaConfig.tinkersCopperCompanion1Id, 3).setUnlocalizedName("ore_copper").setTextureName("ore_copper");
-	            newTinkersOreCopperCompanion2 = new IguanaOreTinkersCompanion2(IguanaConfig.tinkersCopperCompanion2Id, 3).setUnlocalizedName("ore_copper").setTextureName("ore_copper");
-	            newTinkersOreTinCompanion1 = new IguanaOreTinkersCompanion1(IguanaConfig.tinkersTinCompanion1Id, 4).setUnlocalizedName("ore_tin").setTextureName("ore_tin");
-	            newTinkersOreTinCompanion2 = new IguanaOreTinkersCompanion2(IguanaConfig.tinkersTinCompanion2Id, 4).setUnlocalizedName("ore_tin").setTextureName("ore_tin");
-	            newTinkersOreAluminumCompanion1 = new IguanaOreTinkersCompanion1(IguanaConfig.tinkersAluminumCompanion1Id, 5).setUnlocalizedName("ore_aluminum").setTextureName("ore_aluminum");
-	            newTinkersOreAluminumCompanion2 = new IguanaOreTinkersCompanion2(IguanaConfig.tinkersAluminumCompanion2Id, 5).setUnlocalizedName("ore_aluminum").setTextureName("ore_aluminum");
+	            newTinkersOreCopperCompanion1 = new IguanaOreTinkersCompanion1(IguanaConfig.tinkersCopperCompanion1Id, 3).setUnlocalizedName("ore_copperCompanion1").setTextureName("ore_copper");
+	            newTinkersOreCopperCompanion2 = new IguanaOreTinkersCompanion2(IguanaConfig.tinkersCopperCompanion2Id, 3).setUnlocalizedName("ore_copperCompanion2").setTextureName("ore_copper");
+	            newTinkersOreTinCompanion1 = new IguanaOreTinkersCompanion1(IguanaConfig.tinkersTinCompanion1Id, 4).setUnlocalizedName("ore_tinCompanion1").setTextureName("ore_tin");
+	            newTinkersOreTinCompanion2 = new IguanaOreTinkersCompanion2(IguanaConfig.tinkersTinCompanion2Id, 4).setUnlocalizedName("ore_tinCompanion2").setTextureName("ore_tin");
+	            newTinkersOreAluminumCompanion1 = new IguanaOreTinkersCompanion1(IguanaConfig.tinkersAluminumCompanion1Id, 5).setUnlocalizedName("ore_aluminumCompanion1").setTextureName("ore_aluminum");
+	            newTinkersOreAluminumCompanion2 = new IguanaOreTinkersCompanion2(IguanaConfig.tinkersAluminumCompanion2Id, 5).setUnlocalizedName("ore_aluminumCompanion2").setTextureName("ore_aluminum");
 	            GameRegistry.registerBlock(newTinkersOreCopperCompanion1, "newTinkersOreCopperCompanion1");
 	            GameRegistry.registerBlock(newTinkersOreCopperCompanion2, "newTinkersOreCopperCompanion2");
 	            GameRegistry.registerBlock(newTinkersOreTinCompanion1, "newTinkersOreTinCompanion1");
@@ -219,6 +218,12 @@ public class UndergroundBiomesBlender {
 	            OreDictionary.registerOre("oreTin", new ItemStack(newTinkersOreTinCompanion2, 1, OreDictionary.WILDCARD_VALUE));
 	            OreDictionary.registerOre("oreAluminum", new ItemStack(newTinkersOreAluminumCompanion1, 1, OreDictionary.WILDCARD_VALUE));
 	            OreDictionary.registerOre("oreAluminum", new ItemStack(newTinkersOreAluminumCompanion2, 1, OreDictionary.WILDCARD_VALUE));
+	            LanguageRegistry.addName(newTinkersOreCopperCompanion1, "Copper Ore");
+	            LanguageRegistry.addName(newTinkersOreCopperCompanion2, "Copper Ore");
+	            LanguageRegistry.addName(newTinkersOreTinCompanion1, "Tin Ore");
+	            LanguageRegistry.addName(newTinkersOreTinCompanion2, "Tin Ore");
+	            LanguageRegistry.addName(newTinkersOreAluminumCompanion1, "Aluminum Ore");
+	            LanguageRegistry.addName(newTinkersOreAluminumCompanion2, "Aluminum Ore");
 	            
 	            newTinkersOre = new IguanaOreTinkers(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes, 
 	            		newTinkersOreAluminumCompanion1, newTinkersOreAluminumCompanion2, 

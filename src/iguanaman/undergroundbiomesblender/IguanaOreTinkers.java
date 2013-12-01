@@ -30,8 +30,18 @@ public class IguanaOreTinkers extends MetalOre {
 		copperCompanionBlock2 = copperCompanion2;
 		tinCompanionBlock1 = tinCompanion1;
 		tinCompanionBlock2 = tinCompanion2;
-		setTickRandomly(true);
+        if (UndergroundBiomesBlender.COG) this.setTickRandomly(true);
 	}
+
+    /**
+     * Called whenever the block is added into the world. Args: world, x, y, z
+     */
+	@Override
+    public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+    {
+		if (UndergroundBiomesBlender.COG) this.updateTick(par1World, par2, par3, par4, par1World.rand);
+		return super.onBlockPlaced(par1World, par2, par3, par4, par5, par6, par7, par8, par9);
+    }
 
     /**
      * Called whenever the block is added into the world. Args: world, x, y, z
@@ -39,8 +49,7 @@ public class IguanaOreTinkers extends MetalOre {
 	@Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
-    	super.onBlockAdded(par1World, par2, par3, par4);
-		this.updateTick(par1World, par2, par3, par4, par1World.rand);
+		if (!UndergroundBiomesBlender.COG) this.updateTick(par1World, par2, par3, par4, par1World.rand);
     }
 
 
