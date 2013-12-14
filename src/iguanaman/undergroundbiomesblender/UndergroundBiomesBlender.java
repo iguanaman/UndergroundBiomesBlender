@@ -251,13 +251,5 @@ public class UndergroundBiomesBlender {
         @EventHandler
         public void postInit(FMLPostInitializationEvent event) {
         }
-        
-        @EventHandler
-		public void serverStarting(FMLServerStartingEvent event)
-		{
-			ICommandManager commandManager = ModLoader.getMinecraftServerInstance().getCommandManager();
-			ServerCommandManager serverCommandManager = ((ServerCommandManager) commandManager);
-			serverCommandManager.registerCommand(new IguanaCommandConfig());
-		}
 
 }
